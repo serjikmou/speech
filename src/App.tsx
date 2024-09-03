@@ -1,24 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import { Transcriber } from "./Transcriber";
 
 function App() {
+  const [inputValue, setInputValue] = useState<string>("");
+  const [listening, setListening] = useState<boolean>(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  console.log(inputValue);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Transcriber
+        ref={inputRef}
+        value={inputValue}
+        onValueChange={setInputValue}
+        continuous={false}
+        language={"fa"}
+        setListening={setListening}
+      />
+      <span>{inputValue}</span>
     </div>
   );
 }
